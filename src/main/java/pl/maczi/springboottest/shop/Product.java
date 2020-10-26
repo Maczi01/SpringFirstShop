@@ -1,23 +1,16 @@
 package pl.maczi.springboottest.shop;
 
+import java.util.Random;
+
 public class Product {
 
-    private String name;
     private double price;
+    private Random random = new Random();
 
-
-    public Product(String name, double price) {
-        this.name = name;
-        this.price = price;
+    public Product() {
+        this.price = random.nextInt(50) * 6;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public double getPrice() {
         return price;
@@ -30,6 +23,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Name: " + name + ", price:" + price;
+        return "Price:" + price;
     }
 }
