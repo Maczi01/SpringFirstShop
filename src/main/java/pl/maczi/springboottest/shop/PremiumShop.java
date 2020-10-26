@@ -6,11 +6,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 @Profile("Premium")
-public class PremiumShop {
+public class PremiumShop implements Shop {
 
     private ProductService productService;
 
@@ -19,12 +17,9 @@ public class PremiumShop {
         this.productService = productService;
     }
 
+    @Override
     @EventListener(ApplicationReadyEvent.class)
-    public void get() {
-
-        double fiveRandomProducts = productService.getFiveRandomProducts();
-        System.out.println(
-                fiveRandomProducts
-        );
+    public void sumPriceForFiveRandomProducts() {
+        System.out.println(productService.getPriceForFiveRandomProducts());
     }
 }
