@@ -2,6 +2,8 @@ package pl.maczi.springboottest.shop;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import pl.maczi.springboottest.shop.model.Product;
+
 import java.util.ArrayList;
 import java.util.List;
 

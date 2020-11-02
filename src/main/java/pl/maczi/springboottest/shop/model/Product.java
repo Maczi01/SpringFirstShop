@@ -1,16 +1,17 @@
-package pl.maczi.springboottest.shop;
+package pl.maczi.springboottest.shop.model;
 
-import java.util.Random;
+import org.apache.commons.lang.math.RandomUtils;
+
+import java.math.BigDecimal;
 
 public class Product {
 
-    private double price;
+    private BigDecimal price;
     private String name;
-    private Random random = new Random();
 
     public Product(String name) {
         this.name = name;
-        this.price = random.nextInt(50) * 6;
+        this.price = BigDecimal.valueOf(RandomUtils.nextInt(300));
     }
 
     public String getName() {
@@ -21,11 +22,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
