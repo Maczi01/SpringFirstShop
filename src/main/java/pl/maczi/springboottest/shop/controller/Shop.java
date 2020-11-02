@@ -1,4 +1,4 @@
-package pl.maczi.springboottest.shop;
+package pl.maczi.springboottest.shop.controller;
 
 public interface Shop {
 

@@ -1,9 +1,10 @@
-package pl.maczi.springboottest.shop;
+package pl.maczi.springboottest.shop.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.maczi.springboottest.shop.model.Product;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,27 +15,26 @@ public class ProductService {
     private double tax;
     @Value("${shop.discount}")
     private double discount;
-    private final double SUM_QUALIFYING_TO_DISCOUNT = 500;
+    private final BigDecimal SUM_QUALIFYING_TO_DISCOUNT = BigDecimal.valueOf(500);
     private String[] tableWithNames = {"Eggs", "Oats", "Tomatoes", "Bread", "Water"};
 
     public ProductService() {
     }
 
-    public double getPriceForFiveRandomProducts() {
+    public BigDecimal getPriceForFiveRandomProducts() {
         List<Product> productList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             productList.add(new Product(tableWithNames[i]));
         }
 
-        double sum = productList
+        BigDecimal sum = productList
                 .stream()
                 .map(Product::getPrice)
-                .map(e -> e + (e * tax))
-                .mapToDouble(a -> a)
-                .sum();
+                .map(e -> e.add(e.multiply(BigDecimal.valueOf(tax))))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        if (sum > SUM_QUALIFYING_TO_DISCOUNT) {
-            sum = sum - (sum * discount);
+        if (sum.compareTo(SUM_QUALIFYING_TO_DISCOUNT) > 0) {
+            sum = sum.subtract((sum.multiply(BigDecimal.valueOf(discount))));
         }
         return sum;
     }
