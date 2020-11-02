@@ -22,17 +22,29 @@ public class ProductService {
     }
 
     public BigDecimal getPriceForFiveRandomProducts() {
+        List<Product> productList = addRandomNamesForProducts();
+        BigDecimal sum = sumAllProducts(productList);
+        sum = checkDiscount(sum);
+        return sum;
+    }
+
+    private List<Product> addRandomNamesForProducts() {
         List<Product> productList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             productList.add(new Product(tableWithNames[i]));
         }
+        return productList;
+    }
 
-        BigDecimal sum = productList
-                .stream()
-                .map(Product::getPrice)
-                .map(e -> e.add(e.multiply(BigDecimal.valueOf(tax))))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    private BigDecimal sumAllProducts(List<Product> productList) {
+        return productList
+                    .stream()
+                    .map(Product::getPrice)
+                    .map(e -> e.add(e.multiply(BigDecimal.valueOf(tax))))
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 
+    private BigDecimal checkDiscount(BigDecimal sum) {
         if (sum.compareTo(SUM_QUALIFYING_TO_DISCOUNT) > 0) {
             sum = sum.subtract((sum.multiply(BigDecimal.valueOf(discount))));
         }
