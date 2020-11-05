@@ -8,13 +8,14 @@ import org.springframework.stereotype.Component;
 import pl.maczi.springboottest.shop.service.ProductService;
 
 @Component
-@Profile("Premium")
-public class PremiumShop implements Shop {
+@Profile("Plus")
+public class PlusShopInterfaceController implements ShopInterface {
 
-    private ProductService productService;
+
+    ProductService productService;
 
     @Autowired
-    public PremiumShop(ProductService productService) {
+    public PlusShopInterfaceController(ProductService productService) {
         this.productService = productService;
     }
 

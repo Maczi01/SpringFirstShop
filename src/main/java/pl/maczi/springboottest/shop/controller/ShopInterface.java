@@ -1,6 +1,6 @@
 package pl.maczi.springboottest.shop.controller;
 
-public interface Shop {
+public interface ShopInterface {
 
     void sumPriceForFiveRandomProducts();
 
